@@ -1,4 +1,4 @@
-# Phone Temperature Monitor
+# HeatSense
 
 **Keep your Android device cool and healthy!** 🌡️
 
@@ -131,7 +131,7 @@ The app checks multiple thermal sensor paths:
 ```
 app/
 ├── src/main/
-│   ├── java/com/temperaturemonitor/app/
+│   ├── java/com/heatsense/app/
 │   │   └── MainActivity.kt              # Main activity with temperature logic
 │   ├── res/
 │   │   ├── layout/

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Phone Temperature Monitor</string>
+    <string name="app_name">HeatSense</string>
     <string name="battery_temperature">Battery Temperature</string>
     <string name="cpu_temperature">CPU Temperature</string>
     <string name="monitoring_active">Monitoring Active</string>

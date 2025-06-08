@@ -1,4 +1,4 @@
-package com.temperaturemonitor.app
+package com.heatsense.app
 
 import android.content.BroadcastReceiver
 import android.content.Context
@@ -10,7 +10,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.temperaturemonitor.app.databinding.ActivityMainBinding
+import com.heatsense.app.databinding.ActivityMainBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.File
