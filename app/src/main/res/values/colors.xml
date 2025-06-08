@@ -27,4 +27,5 @@
     <!-- Button colors -->
     <color name="button_primary">#6200EE</color>
     <color name="button_primary_dark">#3700B3</color>
+    <color name="ic_launcher_background">#FF6B35</color>
 </resources> 

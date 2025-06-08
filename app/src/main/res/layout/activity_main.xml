@@ -60,7 +60,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/ic_battery"
-                        android:tint="@color/battery_icon_color"
+                        app:tint="@color/battery_icon_color"
                         android:layout_marginEnd="12dp" />
 
                     <TextView
@@ -124,7 +124,7 @@
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/ic_cpu"
-                        android:tint="@color/cpu_icon_color"
+                        app:tint="@color/cpu_icon_color"
                         android:layout_marginEnd="12dp" />
 
                     <TextView
