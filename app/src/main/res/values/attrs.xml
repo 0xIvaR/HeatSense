@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircularGaugeView">
+        <attr name="gaugeType" format="enum">
+            <enum name="cpu" value="0" />
+            <enum name="battery" value="1" />
+        </attr>
+        <attr name="gaugeLabel" format="string" />
+    </declare-styleable>
+</resources>
+

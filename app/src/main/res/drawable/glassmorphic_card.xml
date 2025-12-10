@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Main glass background with reduced opacity -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <solid android:color="#25121212" />
+            <stroke
+                android:width="1dp"
+                android:color="#30FFFFFF" />
+        </shape>
+    </item>
+    
+    <!-- Top highlight for glass effect -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp" />
+            <gradient
+                android:angle="90"
+                android:startColor="#15FFFFFF"
+                android:centerColor="#08FFFFFF"
+                android:endColor="@android:color/transparent"
+                android:type="linear" />
+        </shape>
+    </item>
+</layer-list>
+

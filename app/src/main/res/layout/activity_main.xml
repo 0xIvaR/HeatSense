@@ -1,189 +1,204 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background_color"
+    android:orientation="vertical"
+    android:background="@drawable/cyberpunk_background"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <!-- Sticky App Name Header Bar -->
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:text="HEATSENSE"
+        android:textSize="18sp"
+        android:fontFamily="@font/sf_pro_bold"
+        android:textColor="@color/text_primary_white"
+        android:letterSpacing="0.15"
+        android:gravity="center"
+        android:paddingTop="40dp"
+        android:paddingBottom="6dp"
+        android:background="#000000"
+        android:elevation="4dp" />
 
-        <!-- Header -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="16dp"
+            android:paddingTop="4dp">
+
+            <!-- Hero Section - Twin Reactor Gauges -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:weightSum="2"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="24dp">
+
+            <!-- CPU Gauge -->
+            <com.heatsense.app.views.CircularGaugeView
+                android:id="@+id/cpuGauge"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="8dp"
+                app:gaugeType="cpu"
+                app:gaugeLabel="CPU CORE" />
+
+            <!-- Battery Gauge -->
+            <com.heatsense.app.views.CircularGaugeView
+                android:id="@+id/batteryGauge"
+                android:layout_width="0dp"
+                android:layout_height="220dp"
+                android:layout_weight="1"
+                android:layout_marginStart="8dp"
+                app:gaugeType="battery"
+                app:gaugeLabel="BATTERY PACK" />
+
+        </LinearLayout>
+
+        <!-- Secondary Stats Bar (Glassmorphic Card) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/glassmorphic_card"
+            android:padding="16dp"
+            android:layout_marginBottom="24dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <!-- Battery Status Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.6"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="BATTERY"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:textColor="@color/text_tertiary"
+                        android:letterSpacing="0.05"
+                        android:layout_marginBottom="4dp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <TextView
+                            android:id="@+id/batteryLevel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="85%"
+                            android:textSize="22sp"
+                            android:fontFamily="@font/sf_pro_semibold"
+                            android:textColor="@color/text_primary_white" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" | "
+                            android:textSize="22sp"
+                            android:fontFamily="@font/sf_pro_regular"
+                            android:textColor="@color/text_tertiary" />
+
+                        <TextView
+                            android:id="@+id/chargingStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Charging"
+                            android:textSize="16sp"
+                            android:fontFamily="@font/sf_pro_medium"
+                            android:textColor="@color/battery_amber" />
+
+                        <ImageView
+                            android:id="@+id/chargingIcon"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@drawable/charging_bolt"
+                            android:layout_marginStart="4dp"
+                            android:visibility="gone" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <!-- Peak Session Temps Section -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:gravity="end"
+                    android:paddingStart="8dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PEAK SESSION"
+                        android:textSize="11sp"
+                        android:fontFamily="@font/sf_pro_medium"
+                        android:textColor="@color/text_tertiary"
+                        android:letterSpacing="0.05"
+                        android:layout_marginBottom="4dp" />
+
+                    <TextView
+                        android:id="@+id/peakTemp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="62°C"
+                        android:textSize="22sp"
+                        android:fontFamily="@font/sf_pro_semibold"
+                        android:textColor="@color/temp_hot" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Temperature Timeline Section -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="HeatSense"
-            android:textSize="28sp"
-            android:textStyle="bold"
-            android:textColor="@color/primary_text"
-            android:gravity="center"
-            android:layout_marginBottom="8dp" />
+            android:text="LIVE TEMPERATURE TIMELINE"
+            android:textSize="12sp"
+            android:fontFamily="@font/sf_pro_semibold"
+            android:textColor="@color/text_off_white"
+            android:letterSpacing="0.03"
+            android:layout_marginBottom="12dp" />
 
-        <TextView
-            android:id="@+id/statusText"
+        <!-- Chart (No container - integrated into background) -->
+        <com.heatsense.app.views.TemperatureChartView
+            android:id="@+id/temperatureChart"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Monitoring Active"
-            android:textSize="16sp"
-            android:textColor="@color/secondary_text"
-            android:gravity="center"
+            android:layout_height="240dp"
             android:layout_marginBottom="24dp" />
 
-        <!-- Battery Temperature Card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/card_background">
+        </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+    </ScrollView>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/ic_battery"
-                        app:tint="@color/battery_icon_color"
-                        android:layout_marginEnd="12dp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="Battery Temperature"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_text" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/batteryTempValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="--°C"
-                    android:textSize="48sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/temp_normal"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp" />
-
-                <TextView
-                    android:id="@+id/batteryTempStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reading..."
-                    android:textSize="16sp"
-                    android:textColor="@color/secondary_text"
-                    android:gravity="center" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- CPU Temperature Card -->
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="6dp"
-            app:cardBackgroundColor="@color/card_background">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center_vertical"
-                    android:layout_marginBottom="12dp">
-
-                    <ImageView
-                        android:layout_width="32dp"
-                        android:layout_height="32dp"
-                        android:src="@drawable/ic_cpu"
-                        app:tint="@color/cpu_icon_color"
-                        android:layout_marginEnd="12dp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="CPU Temperature"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:textColor="@color/primary_text" />
-
-                </LinearLayout>
-
-                <TextView
-                    android:id="@+id/cpuTempValue"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="--°C"
-                    android:textSize="48sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/temp_normal"
-                    android:gravity="center"
-                    android:layout_marginBottom="8dp" />
-
-                <TextView
-                    android:id="@+id/cpuTempStatus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Reading..."
-                    android:textSize="16sp"
-                    android:textColor="@color/secondary_text"
-                    android:gravity="center" />
-
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <!-- Control Button -->
-        <Button
-            android:id="@+id/toggleButton"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:text="Stop Monitoring"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:background="@drawable/button_background"
-            android:textColor="@android:color/white"
-            android:layout_marginBottom="16dp" />
-
-        <!-- Info Text -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Temperature readings update every second.\nBattery temp is read from system battery manager.\nCPU temp is read from thermal sensors."
-            android:textSize="12sp"
-            android:textColor="@color/secondary_text"
-            android:gravity="center"
-            android:lineSpacingExtra="4dp" />
-
-    </LinearLayout>
-
-</ScrollView> 
+</LinearLayout> 

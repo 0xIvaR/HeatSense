@@ -95,4 +95,7 @@ lint/tmp/
 # Windows
 Thumbs.db
 ehthumbs.db
-Desktop.ini 
+Desktop.ini
+
+# Project scripts and documentation
+scripts/

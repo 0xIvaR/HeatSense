@@ -16,6 +16,7 @@ import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileReader
 import java.io.BufferedReader
+import kotlin.math.max
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -24,9 +25,14 @@ class MainActivity : AppCompatActivity() {
     private val handler = Handler(Looper.getMainLooper())
     private var isMonitoring = false
     
+    // Peak temperature tracking
+    private var peakCpuTemp = 0f
+    private var peakBatteryTemp = 0f
+    
     private val batteryReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
             updateBatteryTemperature(intent)
+            updateBatteryStatus(intent)
         }
     }
     
@@ -40,23 +46,24 @@ class MainActivity : AppCompatActivity() {
     }
     
     private fun setupUI() {
-        binding.toggleButton.setOnClickListener {
-            if (isMonitoring) {
-                stopMonitoring()
-            } else {
-                startTemperatureMonitoring()
-            }
-        }
+        // Initialize gauges
+        binding.cpuGauge.setTemperature(0f, false)
+        binding.batteryGauge.setTemperature(0f, false)
     }
     
     private fun startTemperatureMonitoring() {
         isMonitoring = true
-        binding.toggleButton.text = "Stop Monitoring"
-        binding.statusText.text = "Monitoring Active"
         
         // Register battery receiver
         val filter = IntentFilter(Intent.ACTION_BATTERY_CHANGED)
         registerReceiver(batteryReceiver, filter)
+        
+        // Reset peak temps
+        peakCpuTemp = 0f
+        peakBatteryTemp = 0f
+        
+        // Clear chart data
+        binding.temperatureChart.clearData()
         
         // Start CPU temperature monitoring
         lifecycleScope.launch {
@@ -69,8 +76,6 @@ class MainActivity : AppCompatActivity() {
     
     private fun stopMonitoring() {
         isMonitoring = false
-        binding.toggleButton.text = "Start Monitoring"
-        binding.statusText.text = "Monitoring Stopped"
         
         try {
             unregisterReceiver(batteryReceiver)
@@ -83,26 +88,41 @@ class MainActivity : AppCompatActivity() {
         if (intent != null && isMonitoring) {
             val temperature = intent.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1)
             if (temperature != -1) {
-                val tempCelsius = temperature / 10.0 // Temperature is in tenths of degree Celsius
-                binding.batteryTempValue.text = "${tempCelsius.roundToInt()}°C"
+                val tempCelsius = temperature / 10.0f // Temperature is in tenths of degree Celsius
                 
-                // Update battery temp status
-                val tempStatus = when {
-                    tempCelsius > 40 -> "Hot"
-                    tempCelsius > 35 -> "Warm"
-                    tempCelsius > 25 -> "Normal"
-                    else -> "Cool"
-                }
-                binding.batteryTempStatus.text = tempStatus
+                // Update battery gauge with animation
+                binding.batteryGauge.setTemperature(tempCelsius, true)
                 
-                // Change color based on temperature
-                val color = when {
-                    tempCelsius > 40 -> android.graphics.Color.RED
-                    tempCelsius > 35 -> android.graphics.Color.parseColor("#FF8C00")
-                    tempCelsius > 25 -> android.graphics.Color.GREEN
-                    else -> android.graphics.Color.BLUE
-                }
-                binding.batteryTempValue.setTextColor(color)
+                // Track peak temperature
+                peakBatteryTemp = max(peakBatteryTemp, tempCelsius)
+                updatePeakDisplay()
+            }
+        }
+    }
+    
+    private fun updateBatteryStatus(intent: Intent?) {
+        if (intent != null) {
+            // Get battery level
+            val level = intent.getIntExtra(BatteryManager.EXTRA_LEVEL, -1)
+            val scale = intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
+            val batteryPct = (level * 100 / scale.toFloat()).toInt()
+            
+            binding.batteryLevel.text = "$batteryPct%"
+            
+            // Get charging status
+            val status = intent.getIntExtra(BatteryManager.EXTRA_STATUS, -1)
+            val isCharging = status == BatteryManager.BATTERY_STATUS_CHARGING ||
+                    status == BatteryManager.BATTERY_STATUS_FULL
+            
+            // Update gauge charging status for lightning bolt
+            binding.batteryGauge.setCharging(isCharging)
+            
+            if (isCharging) {
+                binding.chargingStatus.text = "Charging"
+                binding.chargingIcon.visibility = android.view.View.VISIBLE
+            } else {
+                binding.chargingStatus.text = "Discharging"
+                binding.chargingIcon.visibility = android.view.View.GONE
             }
         }
     }
@@ -114,31 +134,34 @@ class MainActivity : AppCompatActivity() {
         
         runOnUiThread {
             if (cpuTemp != -1f) {
-                binding.cpuTempValue.text = "${cpuTemp.roundToInt()}°C"
+                // Update CPU gauge with animation
+                binding.cpuGauge.setTemperature(cpuTemp, true)
                 
-                // Update CPU temp status
-                val tempStatus = when {
-                    cpuTemp > 70 -> "Very Hot"
-                    cpuTemp > 60 -> "Hot"
-                    cpuTemp > 50 -> "Warm"
-                    cpuTemp > 30 -> "Normal"
-                    else -> "Cool"
-                }
-                binding.cpuTempStatus.text = tempStatus
+                // Track peak temperature
+                peakCpuTemp = max(peakCpuTemp, cpuTemp)
+                updatePeakDisplay()
                 
-                // Change color based on temperature
-                val color = when {
-                    cpuTemp > 70 -> android.graphics.Color.RED
-                    cpuTemp > 60 -> android.graphics.Color.parseColor("#FF4500")
-                    cpuTemp > 50 -> android.graphics.Color.parseColor("#FF8C00")
-                    cpuTemp > 30 -> android.graphics.Color.GREEN
-                    else -> android.graphics.Color.BLUE
-                }
-                binding.cpuTempValue.setTextColor(color)
+                // Get current battery temp for chart
+                val batteryTemp = getCurrentBatteryTemp()
+                
+                // Add data point to chart
+                binding.temperatureChart.addDataPoint(cpuTemp, batteryTemp)
             } else {
-                binding.cpuTempValue.text = "N/A"
-                binding.cpuTempStatus.text = "Unable to read"
+                binding.cpuGauge.setTemperature(0f, false)
             }
+        }
+    }
+    
+    private fun getCurrentBatteryTemp(): Float {
+        val batteryStatus = registerReceiver(null, IntentFilter(Intent.ACTION_BATTERY_CHANGED))
+        val temperature = batteryStatus?.getIntExtra(BatteryManager.EXTRA_TEMPERATURE, -1) ?: -1
+        return if (temperature != -1) temperature / 10.0f else 0f
+    }
+    
+    private fun updatePeakDisplay() {
+        val overallPeak = max(peakCpuTemp, peakBatteryTemp)
+        if (overallPeak > 0) {
+            binding.peakTemp.text = "${overallPeak.roundToInt()}°C"
         }
     }
     
@@ -190,6 +213,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         stopMonitoring()
+        handler.removeCallbacksAndMessages(null)
     }
     
     override fun onPause() {

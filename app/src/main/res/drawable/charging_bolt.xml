@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    
+    <!-- Lightning bolt shape -->
+    <path
+        android:fillColor="@color/battery_amber"
+        android:pathData="M11,21h-1l1,-7H7.5c-0.58,0 -0.57,-0.32 -0.38,-0.66l2.88,-5.49C10.17,7.5 10.38,7 11,7h2l-1,7h3.5c0.49,0 0.56,0.33 0.47,0.51l-4.47,6.99C11.35,21.76 11,22 11,21z" />
+    
+    <!-- Glow effect -->
+    <path
+        android:fillColor="@color/glow_amber"
+        android:pathData="M11,21h-1l1,-7H7.5c-0.58,0 -0.57,-0.32 -0.38,-0.66l2.88,-5.49C10.17,7.5 10.38,7 11,7h2l-1,7h3.5c0.49,0 0.56,0.33 0.47,0.51l-4.47,6.99C11.35,21.76 11,22 11,21z"
+        android:strokeWidth="2"
+        android:strokeColor="@color/battery_amber" />
+</vector>
+
