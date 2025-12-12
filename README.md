@@ -11,7 +11,7 @@
 
 ## 📱 Screenshots
 
-![HeatSense Dashboard](https://github.com/user-attachments/assets/bd37caf5-5f5f-4417-bed3-ab318b462db7)
+<img src="https://github.com/user-attachments/assets/bd37caf5-5f5f-4417-bed3-ab318b462db7" alt="HeatSense Dashboard" width="70%">
 
 ---
 
