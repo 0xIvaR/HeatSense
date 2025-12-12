@@ -11,8 +11,7 @@
 
 ## 📱 Screenshots
 
-![HeatSense Dashboard](https://i.imgur.com/your-screenshot-placeholder.png)
-*(Note: Replace this placeholder with your actual app screenshot)*
+![HeatSense Dashboard](https://github.com/user-attachments/assets/bd37caf5-5f5f-4417-bed3-ab318b462db7)
 
 ---
 
