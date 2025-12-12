@@ -4,6 +4,17 @@
 ![Kotlin](https://img.shields.io/badge/Language-Kotlin-7F52FF?style=flat&logo=kotlin)
 ![UI](https://img.shields.io/badge/UI-Android_Views-3DDC84?style=flat&logo=android)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
+[![GitHub Release](https://img.shields.io/github/v/release/0xIvaR/HeatSense?style=flat&logo=github)](https://github.com/0xIvaR/HeatSense/releases/latest)
+
+## 📥 Download
+
+<a href="https://github.com/0xIvaR/HeatSense/releases/latest/download/HeatSense-v1.0.apk">
+  <img src="https://img.shields.io/badge/Download-APK-green?style=for-the-badge&logo=android" alt="Download APK">
+</a>
+
+> **Note**: Enable "Install from unknown sources" in your Android settings to install the APK.
+
+---
 
 **HeatSense** is a high-performance thermal monitoring dashboard for Android that provides real-time tracking of CPU and battery temperatures. Built for gamers and power users who need precise thermal data, it features a stunning cyberpunk-themed interface powered by Kotlin and custom Android Views.
 
@@ -61,6 +72,21 @@ Follow these instructions to get a local copy of the project up and running.
    - Wait for Gradle sync to complete
    - Connect your Android device (USB debugging enabled) or start an emulator
    - Press **Shift + F10** or click the green **Run** button
+
+---
+
+## 📦 Building Release APK
+
+To build a signed release APK:
+
+1. Open **Build > Generate Signed Bundle / APK** in Android Studio
+2. Select **APK** and click Next
+3. Create a new keystore or use an existing one
+4. Fill in the key details and click Next
+5. Select **release** build variant
+6. Click **Create** to generate the APK
+
+The signed APK will be in `app/release/` folder.
 
 ---
 
