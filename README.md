@@ -11,7 +11,9 @@
 
 ## 📱 Screenshots
 
-<img src="https://github.com/user-attachments/assets/bd37caf5-5f5f-4417-bed3-ab318b462db7" alt="HeatSense Dashboard" width="70%">
+| Portrait View | Landscape View |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/bd37caf5-5f5f-4417-bed3-ab318b462db7" height="400"> | <img src="https://github.com/user-attachments/assets/032ee6be-ead0-48ae-8643-fd82e8e20ecb" height="400"> |
 
 ---
 
